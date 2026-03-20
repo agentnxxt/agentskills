@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>We Just Open-Sourced Our First AI Skill — And It's Only the Beginning | AgentNXXT × Autonomyx</title>
+  <title>Skills Marketplace | AgentNXXT × Autonomyx</title>
 
   <!-- OpenGraph / Social Share -->
-  <meta property="og:title" content="We Just Open-Sourced Our First AI Skill — AgentNXXT × Autonomyx">
-  <meta property="og:description" content="The Website Policy Drafting Skill turns Claude into a specialist compliance advisor. First of many from AgentNXXT, Autonomyx's dedicated agents department.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://agentnxxt.github.io/agentskills/blog.html">
+  <meta property="og:title" content="AgentNXXT Skills Marketplace — AI Skills for Claude">
+  <meta property="og:description" content="Open-source AI skills that turn Claude into a domain specialist. Built by AgentNXXT, Autonomyx's dedicated agents department.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agentnxxt.github.io/agentskills/">
   <meta property="og:image" content="https://agentnxxt.github.io/agentskills/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="We Just Open-Sourced Our First AI Skill — AgentNXXT × Autonomyx">
-  <meta name="twitter:description" content="The Website Policy Drafting Skill. First of many. Built by AgentNXXT, Autonomyx's dedicated agents department.">
+  <meta name="twitter:title" content="AgentNXXT Skills Marketplace — AI Skills for Claude">
+  <meta name="twitter:description" content="Open-source AI skills that turn Claude into a domain specialist. Built by AgentNXXT.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -32,20 +32,21 @@
       --purple-light: #9D82FF;
       --green: #00D28C;
       --amber: #F59E0B;
+      --red: #EF4444;
+      --blue: #3B82F6;
       --purple-glow: rgba(123,92,240,0.15);
       --green-glow: rgba(0,210,140,0.10);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
-      font-size: 18px;
-      line-height: 1.75;
+      font-size: 16px;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -62,6 +63,12 @@
       background: rgba(8,10,16,0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
 
     .nav-brand {
@@ -98,17 +105,10 @@
       background: var(--border2);
     }
 
-    .nav-dept {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--purple-light);
-      letter-spacing: 0.5px;
-    }
-
-    .nav-right {
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
 
     .nav-link {
@@ -117,530 +117,526 @@
       text-decoration: none;
       transition: color 0.2s;
     }
+
     .nav-link:hover { color: var(--text); }
+    .nav-link.active { color: var(--purple-light); }
 
     .nav-cta {
       display: flex;
       align-items: center;
-      gap: 7px;
-      background: rgba(123,92,240,0.15);
-      border: 1px solid rgba(123,92,240,0.3);
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
       border-radius: 8px;
-      padding: 7px 14px;
+      color: var(--text);
+      text-decoration: none;
       font-size: 13px;
       font-weight: 500;
-      color: var(--purple-light);
-      text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
+      transition: all 0.2s;
     }
+
     .nav-cta:hover {
-      background: rgba(123,92,240,0.25);
-      border-color: rgba(123,92,240,0.5);
+      background: rgba(123,92,240,0.1);
+      border-color: var(--purple);
     }
 
     /* ─── HERO ─── */
     .hero {
       position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-top: 64px;
+      padding: 160px 48px 80px;
+      text-align: center;
       overflow: hidden;
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: var(--bg);
+      pointer-events: none;
     }
 
     .hero-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 72px 72px;
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
     }
 
     .hero-orb1 {
       position: absolute;
-      width: 800px; height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(99,60,255,0.16) 0%, transparent 65%);
-      top: -200px; right: -100px;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, var(--purple-glow), transparent 70%);
+      filter: blur(60px);
     }
+
     .hero-orb2 {
       position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,210,140,0.10) 0%, transparent 65%);
-      bottom: 0; left: 100px;
+      bottom: -50px;
+      right: 10%;
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse, var(--green-glow), transparent 70%);
+      filter: blur(60px);
     }
 
     .hero-content {
       position: relative;
-      z-index: 2;
-      max-width: 1200px;
+      max-width: 720px;
       margin: 0 auto;
-      width: 100%;
-      padding: 120px 48px 80px;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 64px;
-      align-items: end;
     }
 
-    .hero-left { }
-
-    .hero-badges {
-      display: flex;
+    .hero-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
       border-radius: 100px;
-      padding: 5px 13px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-
-    .badge-brand {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
       color: var(--text-muted);
+      margin-bottom: 32px;
     }
-    .badge-brand .bdot {
-      width: 20px; height: 20px;
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple), var(--green));
-      font-size: 8px; font-weight: 700; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      letter-spacing: -0.3px;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .badge-dept {
-      background: rgba(123,92,240,0.12);
-      border: 1px solid rgba(123,92,240,0.28);
-      color: var(--purple-light);
-    }
-
-    .badge-new {
-      background: rgba(0,210,140,0.1);
-      border: 1px solid rgba(0,210,140,0.28);
-      color: var(--green);
-    }
-
-    .badge-sep {
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--border2);
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     .hero-title {
       font-family: 'Fraunces', serif;
-      font-size: clamp(48px, 6vw, 80px);
-      font-weight: 600;
-      line-height: 1.05;
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.15;
       letter-spacing: -2px;
-      color: var(--text);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    .hero-title .grad {
-      background: linear-gradient(90deg, #9D82FF 0%, #00D28C 100%);
+    .grad {
+      background: linear-gradient(135deg, var(--purple-light), var(--green));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-lead {
-      font-size: 19px;
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.7;
       color: var(--text-muted);
-      line-height: 1.6;
       max-width: 560px;
-      margin-bottom: 48px;
-      font-weight: 300;
+      margin: 0 auto 40px;
     }
 
-    .hero-meta {
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* ─── FILTER ─── */
+    .filter-bar {
       display: flex;
       align-items: center;
-      gap: 20px;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 48px;
+      margin-bottom: 48px;
       flex-wrap: wrap;
     }
 
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .filter-btn {
+      padding: 8px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-muted);
       font-size: 13px;
-      color: var(--text-faint);
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border2); }
-
-    /* Hero right card */
-    .hero-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border2);
-      border-radius: 20px;
-      padding: 32px;
-      backdrop-filter: blur(8px);
+    .filter-btn:hover {
+      border-color: var(--border2);
+      color: var(--text);
     }
 
-    .hcard-header {
+    .filter-btn.active {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: #fff;
+    }
+
+    /* ─── SKILLS GRID ─── */
+    .skills-section {
+      padding: 0 48px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.25s ease;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .skill-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .skill-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .skill-icon.legal { background: linear-gradient(135deg, rgba(123,92,240,0.2), rgba(123,92,240,0.05)); }
+    .skill-icon.finance { background: linear-gradient(135deg, rgba(0,210,140,0.2), rgba(0,210,140,0.05)); }
+    .skill-icon.saas { background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05)); }
+    .skill-icon.design { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05)); }
+    .skill-icon.dev { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05)); }
+
+    .skill-status {
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+
+    .skill-status.shipped {
+      background: rgba(0,210,140,0.12);
+      color: var(--green);
+    }
+
+    .skill-status.beta {
+      background: rgba(245,158,11,0.12);
+      color: var(--amber);
+    }
+
+    .skill-name {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .skill-slug {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+
+    .skill-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       margin-bottom: 20px;
     }
 
-    .hcard-icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(123,92,240,0.25), rgba(0,210,140,0.15));
-      border: 1px solid rgba(123,92,240,0.25);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-    }
-
-    .hcard-title {
-      font-size: 14px; font-weight: 500;
-      color: var(--text);
-      margin-bottom: 3px;
-    }
-
-    .hcard-sub {
+    .skill-tag {
+      padding: 3px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--text-faint);
+      color: var(--text-muted);
     }
 
-    .policy-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-
-    .policy-item {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; color: var(--text-muted);
-    }
-
-    .pdot {
-      width: 6px; height: 6px;
-      border-radius: 50%; flex-shrink: 0;
-    }
-    .pdot.g { background: var(--green); }
-    .pdot.p { background: var(--purple); }
-    .pdot.a { background: var(--amber); }
-
-    .reg-tags {
-      display: flex; flex-wrap: wrap; gap: 6px;
+    .skill-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding-top: 16px;
       border-top: 1px solid var(--border);
     }
 
-    .reg-tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px; font-weight: 500;
-      color: var(--text-faint);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 7px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Hero bottom strip */
-    .hero-strip {
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid var(--border);
-      background: rgba(8,10,16,0.6);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-strip-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 48px;
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      height: 56px;
-      overflow: hidden;
-    }
-
-    .strip-label {
+    .skill-category {
       font-size: 11px;
-      font-weight: 500;
-      color: var(--text-faint);
       text-transform: uppercase;
       letter-spacing: 1px;
-      white-space: nowrap;
-    }
-
-    .strip-divider { width: 1px; height: 20px; background: var(--border); }
-
-    .strip-regs {
-      display: flex; align-items: center; gap: 20px;
-    }
-
-    .strip-reg {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
       color: var(--text-faint);
-      white-space: nowrap;
     }
 
-    /* ─── ARTICLE ─── */
-    article {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 96px 48px 48px;
-    }
-
-    article p {
-      color: var(--text-muted);
-      margin-bottom: 28px;
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 1.8;
-    }
-
-    article p strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    article p em { font-style: italic; color: rgba(232,230,223,0.6); }
-
-    article h2 {
-      font-family: 'Fraunces', serif;
-      font-size: 34px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -1px;
-      line-height: 1.2;
-      margin-top: 72px;
-      margin-bottom: 24px;
-    }
-
-    article h2::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--purple), var(--green));
-      margin-bottom: 20px;
-      border-radius: 2px;
-    }
-
-    .divider-rule {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 48px 0;
-    }
-
-    /* Feature list */
-    .feature-list {
+    .skill-actions {
       display: flex;
-      flex-direction: column;
-      gap: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      margin: 32px 0;
+      gap: 8px;
     }
 
-    .feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-    .feature-item:last-child { border-bottom: none; }
-    .feature-item:hover { background: rgba(255,255,255,0.02); }
-
-    .fi-icon {
-      width: 32px; height: 32px;
+    .skill-btn {
+      padding: 6px 14px;
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .fi-icon.purple { background: rgba(123,92,240,0.15); border: 1px solid rgba(123,92,240,0.2); }
-    .fi-icon.green  { background: rgba(0,210,140,0.12);  border: 1px solid rgba(0,210,140,0.2); }
-    .fi-icon.amber  { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.2); }
-
-    .fi-content {}
-    .fi-title {
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 500;
-      color: var(--text);
-      margin-bottom: 4px;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
     }
-    .fi-desc {
-      font-size: 13px;
+
+    .skill-btn-primary {
+      background: var(--purple);
+      color: #fff;
+    }
+
+    .skill-btn-primary:hover {
+      background: var(--purple-light);
+    }
+
+    .skill-btn-secondary {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
       color: var(--text-muted);
-      line-height: 1.5;
-      font-weight: 300;
     }
 
-    /* Highlight box */
-    .highlight-box {
-      background: linear-gradient(135deg, rgba(123,92,240,0.07), rgba(0,210,140,0.05));
-      border: 1px solid rgba(123,92,240,0.2);
-      border-radius: 16px;
-      padding: 28px 32px;
-      margin: 36px 0;
+    .skill-btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--purple);
     }
 
-    .highlight-box p {
-      margin-bottom: 0;
-      font-size: 17px;
-      color: rgba(232,230,223,0.7);
-      font-style: italic;
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      padding: 80px 48px;
+      text-align: center;
     }
 
-    /* GitHub CTA */
-    .github-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .cta-box {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px;
       background: var(--surface);
       border: 1px solid var(--border2);
-      border-radius: 16px;
-      padding: 28px 32px;
-      margin: 48px 0;
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .github-cta:hover {
-      border-color: rgba(123,92,240,0.4);
-      background: rgba(123,92,240,0.05);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .gcta-left {}
-    .gcta-label {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--purple-light);
-      margin-bottom: 6px;
-    }
-    .gcta-repo {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 16px;
-      color: var(--text);
-      font-weight: 500;
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--purple), var(--green), transparent);
     }
 
-    .gcta-right {
+    .cta-title {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .cta-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
       display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(123,92,240,0.15);
-      border: 1px solid rgba(123,92,240,0.3);
+      gap: 8px;
+      padding: 12px 24px;
       border-radius: 10px;
-      padding: 10px 18px;
       font-size: 14px;
       font-weight: 500;
-      color: var(--purple-light);
-      white-space: nowrap;
-      flex-shrink: 0;
+      text-decoration: none;
+      transition: all 0.2s;
     }
 
-    /* Footer */
+    .cta-btn-primary {
+      background: var(--purple);
+      color: #fff;
+    }
+
+    .cta-btn-primary:hover {
+      background: var(--purple-light);
+      transform: translateY(-1px);
+    }
+
+    .cta-btn-secondary {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+    }
+
+    .cta-btn-secondary:hover {
+      border-color: var(--purple);
+      transform: translateY(-1px);
+    }
+
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
-      margin-top: 96px;
+      padding: 64px 48px 32px;
     }
 
     .footer-inner {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 48px 48px 64px;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr;
       gap: 48px;
+      margin-bottom: 48px;
     }
 
-    .footer-brand {}
+    .footer-brand { max-width: 360px; }
+
     .footer-logo {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 16px;
     }
+
     .footer-logo-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: linear-gradient(135deg, var(--purple), var(--green));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
     }
+
     .footer-logo-text {
       font-size: 15px;
       font-weight: 500;
-      color: var(--text);
     }
+
     .footer-logo-sub {
       font-size: 11px;
-      color: var(--purple-light);
-      margin-top: 1px;
+      color: var(--text-muted);
     }
 
     .footer-desc {
-      font-size: 13px;
-      color: var(--text-faint);
-      line-height: 1.6;
-      font-weight: 300;
-      max-width: 240px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-muted);
     }
 
     .footer-section-title {
       font-size: 11px;
-      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--text-faint);
       margin-bottom: 16px;
     }
 
-    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .footer-link {
       font-size: 14px;
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s;
     }
+
     .footer-link:hover { color: var(--text); }
 
     .footer-bottom {
-      border-top: 1px solid var(--border);
-      padding: 24px 48px;
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .footer-copy {
@@ -651,33 +647,26 @@
     .footer-disclaimer {
       font-size: 11px;
       color: var(--text-faint);
-      max-width: 400px;
-      text-align: right;
-      line-height: 1.5;
+      font-style: italic;
     }
 
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-badges  { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
-    .hero-title   { animation: fadeUp 0.7s ease both; animation-delay: 0.2s; }
-    .hero-lead    { animation: fadeUp 0.7s ease both; animation-delay: 0.3s; }
-    .hero-meta    { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
-    .hero-card    { animation: fadeUp 0.8s ease both; animation-delay: 0.35s; }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero-content { grid-template-columns: 1fr; gap: 48px; }
-      .hero-card { display: none; }
-      nav { padding: 0 24px; }
-      article { padding: 64px 24px 32px; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 20px 60px; }
+      .hero-title { font-size: 36px; letter-spacing: -1px; }
+      .hero-desc { font-size: 16px; }
+      .hero-stats { gap: 32px; }
+      .hero-stat-value { font-size: 24px; }
+      .filter-bar { padding: 0 20px; }
+      .skills-section { padding: 0 20px 60px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 60px 20px; }
+      .cta-box { padding: 32px 24px; }
+      footer { padding: 48px 20px 24px; }
       .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .footer-disclaimer { text-align: center; }
-      .hero-content { padding: 80px 24px 60px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -685,20 +674,21 @@
 
 <!-- NAV -->
 <nav>
-  <a href="https://openautonomyx.com" class="nav-brand">
-    <div class="nav-logo">AX</div>
-    <span class="nav-name">Autonomyx</span>
-    <div class="nav-sep"></div>
-    <span class="nav-dept">AgentNXXT</span>
-  </a>
-  <div class="nav-right">
-    <a href="https://openautonomyx.com" class="nav-link">Website</a>
-    <a href="https://github.com/AgentNXXT/agentskills" class="nav-link">GitHub</a>
-    <a href="https://github.com/AgentNXXT/agentskills" class="nav-cta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      View on GitHub
+  <div class="nav-left">
+    <a href="/" class="nav-brand">
+      <div class="nav-logo">AX</div>
+      <span class="nav-name">AgentNXXT</span>
     </a>
+    <div class="nav-sep"></div>
+    <div class="nav-links">
+      <a href="/" class="nav-link active">Skills</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+    </div>
   </div>
+  <a href="https://github.com/AgentNXXT/agentskills" class="nav-cta">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    GitHub
+  </a>
 </nav>
 
 <!-- HERO -->
@@ -710,199 +700,252 @@
   </div>
 
   <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-badges">
-        <div class="badge badge-brand">
-          <div class="bdot">AX</div>
-          Autonomyx
-        </div>
-        <div class="badge-sep"></div>
-        <div class="badge badge-dept">AgentNXXT</div>
-        <div class="badge badge-new">Skill #001</div>
-      </div>
-
-      <h1 class="hero-title">
-        We Just<br>
-        <span class="grad">Open-Sourced</span><br>
-        Our First AI Skill.
-      </h1>
-
-      <p class="hero-lead">
-        AgentNXXT, Autonomyx's dedicated agents department, is going public with its AI skill library. First up: the tool that kills compliance chaos for builders.
-      </p>
-
-      <div class="hero-meta">
-        <span class="meta-item">March 17, 2026</span>
-        <div class="meta-dot"></div>
-        <span class="meta-item">AgentNXXT Team</span>
-        <div class="meta-dot"></div>
-        <span class="meta-item">5 min read</span>
-      </div>
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Open Source &middot; Built by Autonomyx
     </div>
 
-    <div class="hero-card">
-      <div class="hcard-header">
-        <div class="hcard-icon">⚖️</div>
-        <div>
-          <div class="hcard-title">Policy Drafting Skill</div>
-          <div class="hcard-sub">website-policy-drafting-skill</div>
-        </div>
-      </div>
-      <div class="policy-list">
-        <div class="policy-item"><div class="pdot g"></div>Privacy Policy</div>
-        <div class="policy-item"><div class="pdot g"></div>Terms of Service</div>
-        <div class="policy-item"><div class="pdot p"></div>AI Usage Policy</div>
-        <div class="policy-item"><div class="pdot p"></div>Data Processing Agreement</div>
-        <div class="policy-item"><div class="pdot a"></div>Cookie Policy</div>
-        <div class="policy-item"><div class="pdot a"></div>Acceptable Use Policy</div>
-        <div class="policy-item" style="font-size:12px;color:var(--text-faint);padding-left:16px">+ 4 more policy types</div>
-      </div>
-      <div class="reg-tags">
-        <span class="reg-tag">GDPR</span>
-        <span class="reg-tag">CCPA</span>
-        <span class="reg-tag">DPDP</span>
-        <span class="reg-tag">EU AI Act</span>
-        <span class="reg-tag">WCAG/ADA</span>
-      </div>
-    </div>
-  </div>
+    <h1 class="hero-title">
+      The <span class="grad">Skills Marketplace</span><br>
+      for Claude.
+    </h1>
 
-  <div class="hero-strip">
-    <div class="hero-strip-inner">
-      <span class="strip-label">Auto-detects</span>
-      <div class="strip-divider"></div>
-      <div class="strip-regs">
-        <span class="strip-reg">GDPR</span>
-        <span class="strip-reg">UK GDPR</span>
-        <span class="strip-reg">CCPA / CPRA</span>
-        <span class="strip-reg">India DPDP Act</span>
-        <span class="strip-reg">EU AI Act</span>
-        <span class="strip-reg">WCAG 2.1 / ADA</span>
+    <p class="hero-desc">
+      Purpose-built AI skills that turn Claude into a domain specialist.
+      Install a skill, unlock deep expertise. Open source, free forever.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">7</div>
+        <div class="hero-stat-label">Skills</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">5</div>
+        <div class="hero-stat-label">Categories</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">100%</div>
+        <div class="hero-stat-label">Open Source</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ARTICLE -->
-<article>
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Skills</button>
+  <button class="filter-btn" data-filter="legal">Legal &amp; Compliance</button>
+  <button class="filter-btn" data-filter="finance">Finance</button>
+  <button class="filter-btn" data-filter="saas">SaaS Research</button>
+  <button class="filter-btn" data-filter="design">Design</button>
+  <button class="filter-btn" data-filter="dev">Developer Tools</button>
+</div>
 
-  <p>We've been quietly building something powerful inside Autonomyx.</p>
+<!-- SKILLS GRID -->
+<section class="skills-section">
+  <div class="skills-grid">
 
-  <p>Not just products. Not just services. A library of AI skills — purpose-built, battle-tested agents that make Claude dramatically smarter at specific jobs. And today, we're releasing the first one to the world.</p>
+    <!-- Skill 001: Website Policy Drafting -->
+    <div class="skill-card" data-category="legal">
+      <div class="skill-card-header">
+        <div class="skill-icon legal">&#9878;&#65039;</div>
+        <div class="skill-status shipped">Shipped</div>
+      </div>
+      <div class="skill-name">Website Policy Drafting</div>
+      <div class="skill-slug">website-policy-drafting-skill</div>
+      <p class="skill-desc">
+        Drafts legal and compliance documents for digital products &mdash; privacy policies, terms of service, AI usage policies, DPAs, and more. Auto-detects applicable regulations based on your product and users.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">GDPR</span>
+        <span class="skill-tag">CCPA</span>
+        <span class="skill-tag">EU AI Act</span>
+        <span class="skill-tag">DPDP</span>
+        <span class="skill-tag">10 policy types</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">Legal &amp; Compliance</span>
+        <div class="skill-actions">
+          <a href="policy-skill.html" class="skill-btn skill-btn-secondary">Details</a>
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/website-policy-drafting-skill" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <p>Meet the <strong>Website Policy Drafting Skill</strong>.</p>
+    <!-- Skill 002: SaaS Cost Analyzer -->
+    <div class="skill-card" data-category="finance">
+      <div class="skill-card-header">
+        <div class="skill-icon finance">&#128200;</div>
+        <div class="skill-status shipped">Shipped</div>
+      </div>
+      <div class="skill-name">SaaS Cost Analyzer</div>
+      <div class="skill-slug">saas-cost-analyzer</div>
+      <p class="skill-desc">
+        Calculates total cost of ownership for SaaS and open-source software. Produces cost breakdowns, scenario analyses, and executive summaries for procurement decisions.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">TCO</span>
+        <span class="skill-tag">Pricing</span>
+        <span class="skill-tag">Build vs Buy</span>
+        <span class="skill-tag">Procurement</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">Finance</span>
+        <div class="skill-actions">
+          <a href="saas-cost-analyzer-blog.html" class="skill-btn skill-btn-secondary">Details</a>
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/saas-cost-analyzer" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <hr class="divider-rule">
+    <!-- Skill 003: SaaS Standardizer -->
+    <div class="skill-card" data-category="saas">
+      <div class="skill-card-header">
+        <div class="skill-icon saas">&#128202;</div>
+        <div class="skill-status beta">Beta</div>
+      </div>
+      <div class="skill-name">SaaS Standardizer</div>
+      <div class="skill-slug">saas-standardizer</div>
+      <p class="skill-desc">
+        Produces exhaustive, standardized profiles of SaaS products across 23 dimensions &mdash; features, APIs, integrations, pricing, security, compliance, competitive positioning, and more.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">23 Dimensions</span>
+        <span class="skill-tag">G2 / Gartner</span>
+        <span class="skill-tag">Webhook</span>
+        <span class="skill-tag">Comparison</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">SaaS Research</span>
+        <div class="skill-actions">
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/saas-standardizer" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <h2>What Is an AI Skill?</h2>
+    <!-- Skill 004: SaaS Evaluator -->
+    <div class="skill-card" data-category="saas">
+      <div class="skill-card-header">
+        <div class="skill-icon saas">&#128101;</div>
+        <div class="skill-status beta">Beta</div>
+      </div>
+      <div class="skill-name">SaaS Evaluator</div>
+      <div class="skill-slug">saas-evaluator</div>
+      <p class="skill-desc">
+        Multi-persona enterprise SaaS evaluation framework. Six personas &mdash; CISO, IT Admin, Procurement, CTO, Legal, End User &mdash; each score and assess products from their perspective.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">6 Personas</span>
+        <span class="skill-tag">Enterprise</span>
+        <span class="skill-tag">Scoring</span>
+        <span class="skill-tag">Audit</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">SaaS Research</span>
+        <div class="skill-actions">
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/saas-evaluator" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <p>Think of it like this: Claude is brilliant out of the box. But a <em>skill</em> is what happens when you give Claude deep domain expertise, a structured workflow, and institutional knowledge — all baked into a single, installable file.</p>
+    <!-- Skill 005: Brand Kit Generator -->
+    <div class="skill-card" data-category="design">
+      <div class="skill-card-header">
+        <div class="skill-icon design">&#127912;</div>
+        <div class="skill-status beta">Beta</div>
+      </div>
+      <div class="skill-name">Brand Kit Generator</div>
+      <div class="skill-slug">brand-kit-generator</div>
+      <p class="skill-desc">
+        Generates complete brand kits from a product description &mdash; SVG logos, color palettes, favicons, app icons, social preview images, and a brand guidelines document, all in a ZIP.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">Logo</span>
+        <span class="skill-tag">Colors</span>
+        <span class="skill-tag">Guidelines</span>
+        <span class="skill-tag">ZIP Export</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">Design</span>
+        <div class="skill-actions">
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/brand-kit-generator" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <p>It's the difference between asking a smart generalist and talking to a specialist who's done this a thousand times.</p>
+    <!-- Skill 006: Landing Page Generator -->
+    <div class="skill-card" data-category="design">
+      <div class="skill-card-header">
+        <div class="skill-icon design">&#128640;</div>
+        <div class="skill-status beta">Beta</div>
+      </div>
+      <div class="skill-name">Landing Page Generator</div>
+      <div class="skill-slug">landing-page-generator</div>
+      <p class="skill-desc">
+        Generates production-grade landing pages from any existing website URL or uploaded file. Outputs single HTML or React component with distinctive, non-generic design.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">URL Scrape</span>
+        <span class="skill-tag">Responsive</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">Design</span>
+        <div class="skill-actions">
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/landing-page-generator" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <p>Our Website Policy Drafting Skill turns Claude into exactly that — a specialist compliance advisor for founders, developers, and product teams.</p>
+    <!-- Skill 007: MCP from API Docs -->
+    <div class="skill-card" data-category="dev">
+      <div class="skill-card-header">
+        <div class="skill-icon dev">&#128268;</div>
+        <div class="skill-status beta">Beta</div>
+      </div>
+      <div class="skill-name">MCP from API Docs</div>
+      <div class="skill-slug">mcp-from-apidocs</div>
+      <p class="skill-desc">
+        Generates complete, ready-to-run MCP server projects from any API documentation. Turns third-party APIs into Claude-native tools with full TypeScript scaffolding.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">MCP</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">OpenAPI</span>
+        <span class="skill-tag">Deployable</span>
+      </div>
+      <div class="skill-footer">
+        <span class="skill-category">Developer Tools</span>
+        <div class="skill-actions">
+          <a href="https://github.com/AgentNXXT/agentskills/tree/main/mcp-from-apidocs" class="skill-btn skill-btn-primary">Install</a>
+        </div>
+      </div>
+    </div>
 
-  <hr class="divider-rule">
-
-  <h2>The Problem It Solves</h2>
-
-  <p>You're building something. A SaaS. A mobile app. An AI product. A marketplace.</p>
-
-  <p>At some point, someone asks: <em>"Do we have a privacy policy?"</em></p>
-
-  <p>And then begins the scramble. Legal templates that don't fit. Lawyers that cost thousands. Generic policy generators that spit out boilerplate no one reads. Regulations you've never heard of — GDPR, CCPA, DPDP, EU AI Act — that may or may not apply to your product.</p>
-
-  <p>It's a mess. And it slows builders down.</p>
-
-  <div class="highlight-box">
-    <p>Tell it what you're building — your stack, your users, your integrations — and it figures out the rest. What regulations apply to you. What policies you need. In what order. Then it drafts them, publication-ready, right in your conversation.</p>
   </div>
+</section>
 
-  <hr class="divider-rule">
-
-  <h2>What It Can Do</h2>
-
-  <div class="feature-list">
-    <div class="feature-item">
-      <div class="fi-icon green">📋</div>
-      <div class="fi-content">
-        <div class="fi-title">10 policy types covered</div>
-        <div class="fi-desc">Privacy Policy, Terms of Service, Cookie Policy, AI Usage Policy, Data Processing Agreements, Acceptable Use Policy, API Usage Policy, Marketplace Policy, Community Guidelines, Accessibility Policy</div>
-      </div>
-    </div>
-    <div class="feature-item">
-      <div class="fi-icon purple">🌍</div>
-      <div class="fi-content">
-        <div class="fi-title">Regulation auto-detection</div>
-        <div class="fi-desc">GDPR, UK GDPR, CCPA/CPRA, India DPDP Act, EU AI Act, WCAG/ADA — automatically identified based on your product and user geography</div>
-      </div>
-    </div>
-    <div class="feature-item">
-      <div class="fi-icon green">⚡</div>
-      <div class="fi-content">
-        <div class="fi-title">One-prompt generation</div>
-        <div class="fi-desc">Describe your product once, get a full compliance roadmap and your first draft automatically — no questionnaires, no back-and-forth</div>
-      </div>
-    </div>
-    <div class="feature-item">
-      <div class="fi-icon amber">🔍</div>
-      <div class="fi-content">
-        <div class="fi-title">Policy review mode</div>
-        <div class="fi-desc">Paste an existing policy and get a gap analysis, compliance audit, and a full redraft in minutes</div>
-      </div>
-    </div>
-    <div class="feature-item">
-      <div class="fi-icon purple">📝</div>
-      <div class="fi-content">
-        <div class="fi-title">Startup-friendly mode</div>
-        <div class="fi-desc">Plain language summaries alongside full legal versions — so your team actually understands what they're publishing</div>
-      </div>
-    </div>
-    <div class="feature-item">
-      <div class="fi-icon green">🧠</div>
-      <div class="fi-content">
-        <div class="fi-title">Session memory</div>
-        <div class="fi-desc">It remembers your product across conversations so you never repeat yourself — pick up exactly where you left off</div>
-      </div>
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2 class="cta-title">Build with us.</h2>
+    <p class="cta-desc">
+      Every skill is open source. Fork them, improve them, or build your own.
+      The AgentNXXT skill library is our bet that the future of AI is specialized, composable skills.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://github.com/AgentNXXT/agentskills" class="cta-btn cta-btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Explore on GitHub
+      </a>
+      <a href="blog.html" class="cta-btn cta-btn-secondary">
+        Read the Blog
+      </a>
     </div>
   </div>
-
-  <p>This isn't a template filler. It's a compliance workflow, end to end.</p>
-
-  <hr class="divider-rule">
-
-  <h2>Why We're Open-Sourcing It</h2>
-
-  <p>Because we believe AI tools should be shared, improved, and built upon — not locked away.</p>
-
-  <p>This skill was built by <strong>AgentNXXT</strong> — the department inside Autonomyx that lives and breathes agents. Every workflow, every integration, every edge case in this skill came out of AgentNXXT's obsession with making AI agents actually useful in the real world.</p>
-
-  <p>The AgentNXXT skill library is our bet that the future of AI isn't just foundation models. It's the ecosystem of specialized, composable skills built on top of them. And we want to contribute to that ecosystem openly.</p>
-
-  <p>This is Skill #1. There are many more coming.</p>
-
-  <hr class="divider-rule">
-
-  <h2>What's Next</h2>
-
-  <p>AgentNXXT is building an entire library of skills — each one targeting a specific, high-friction workflow that builders deal with every day. Legal. Finance. Product. Engineering. Marketing.</p>
-
-  <p>Every skill that ships from AgentNXXT is Autonomyx's commitment to making AI agents that don't just sound smart — they <em>do</em> things. Reliably. Repeatedly. At scale.</p>
-
-  <p>If this resonates with what you're building, follow along. The next release isn't far away.</p>
-
-  <a href="https://github.com/AgentNXXT/agentskills" class="github-cta">
-    <div class="gcta-left">
-      <div class="gcta-label">Open Source · AgentNXXT</div>
-      <div class="gcta-repo">github.com/AgentNXXT/agentskills</div>
-    </div>
-    <div class="gcta-right">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      Explore the Skill
-    </div>
-  </a>
-
-</article>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -938,10 +981,29 @@
   </div>
 
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 OpenAutonomyx (OPC) Private Limited. Built by AgentNXXT.</span>
-    <span class="footer-disclaimer">Always have your policies reviewed by a qualified legal professional before official or commercial use.</span>
+    <span class="footer-copy">&copy; 2026 OpenAutonomyx (OPC) Private Limited. Built by AgentNXXT.</span>
+    <span class="footer-disclaimer">Skills are open source. Always review outputs before production use.</span>
   </div>
 </footer>
+
+<!-- FILTER JS -->
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.skill-card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
