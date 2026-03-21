@@ -26,6 +26,13 @@ Generates a polished, ATS-friendly resume from any online profile or account.
 - Falls back to portfolio-only resume when no Explorium match is found
 - Optional contact enrichment (email/phone) with cost confirmation
 
+### `skills-frameworks`
+Shared vocabulary of professional skills frameworks for standardized skill classification.
+- Maps 17+ professions to their respective competency frameworks (SFIA, NICE/NIST, EDISON, PMI, CFA, SHRM, CIM, UXPA, etc.)
+- Cross-framework level equivalence table (Beginner/Intermediate/Advanced/Expert across all frameworks)
+- Protocol for industries without a recognized framework (ask user, use universal levels as fallback)
+- Mandatory framework attribution for transparency
+
 ### `autonomyx-vocabulary`
 Shared vocabulary and taxonomy reference used by all Autonomyx skills.
 - Gartner Peer Insights → G2 category mapping (~120 markets)
@@ -63,10 +70,14 @@ autonomyx-vocabulary
   └── standalone reference (no dependencies)
 
 linkedin-resume
+  └── reads → skills-frameworks (skill classification and framework mapping)
   └── reads → Explorium (match-prospects, enrich-prospects)
   └── reads → Platform APIs (GitHub, Docker Hub, Stack Overflow, npm, PyPI, Dev.to, etc.)
   └── reads → WordPress MCP tools (optional)
   └── reads → WebFetch (fallback for any platform)
+
+skills-frameworks
+  └── standalone reference (no dependencies)
 ```
 
 ## Feature Status Badges

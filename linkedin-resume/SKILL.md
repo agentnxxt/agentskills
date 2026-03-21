@@ -459,9 +459,13 @@ professional resume following the format in the **Resume Template** section belo
   date range, and location where available.
 - **Education**: List degrees in reverse chronological order. Include institution, degree,
   field of study, and dates where available.
-- **Skills**: Extract from job titles, role descriptions, industry context, AND platform data
-  (GitHub languages, Stack Overflow top tags, npm/PyPI package domains). Only include skills
-  with clear evidence.
+- **Skills**: Build a detailed skills table with three columns: **Skill**, **Level**, and
+  **Proof**. Extract skills from job titles, role descriptions, industry context, AND platform
+  data (GitHub languages, Stack Overflow top tags, npm/PyPI package domains). For each skill:
+  - **Determine the proficiency level** using the evidence-based level framework (see below)
+  - **Identify the proof source** — what evidence supports this skill and at what level
+  - **Mark verification status** — if a VC or platform credential verifies the skill, show
+    "Verified by [issuer]"; otherwise show the evidence source
 - **Platform Portfolio Sections**: Append platform-specific sections after Skills. Only include
   sections for platforms where data was collected. See template below.
 
@@ -640,8 +644,186 @@ points. If not available, omit bullets rather than fabricating content.]
 
 ## Skills
 
-[Comma-separated list of skills inferred from job titles, industries, role context, AND
-platform data (languages, tags, package domains). Only include skills with clear evidence.]
+**Skills evaluated per:** [Framework Name] ([reference URL])
+
+| Skill | Framework Mapping | Level | Proof |
+|---|---|---|---|
+| [Skill Name] | [Code — Level] | [Expert / Advanced / Intermediate / Beginner] | [Verification or evidence source] |
+| Python | SFIA:PROG — Level 5 | Expert | Verified by HackerRank (Score: 95/100, Nov 2025) |
+| Kubernetes | SFIA:ITOP — Level 4 | Advanced | Verified by CNCF (CKA Certification, Jan 2025) |
+| React | SFIA:PROG — Level 4 | Advanced | GitHub: 12 repos, 850+ commits; Stack Overflow: top 5% tag score |
+| Project Management | IPMA:ICB4 — Level C | Intermediate | Verified by PMI (PMP Certification, Mar 2024) |
+| AWS Cloud Architecture | SFIA:ARCH — Level 5 | Advanced | Verified by Amazon (AWS SA Professional, Jun 2024) |
+| Technical Writing | SFIA:INCA — Level 3 | Intermediate | Dev.to: 25 articles, 3,200+ reactions |
+| Machine Learning | EDISON:DSML — Level 3 | Intermediate | Kaggle: 3 competitions, silver medal; PyPI: 2 ML packages |
+| Team Leadership | SFIA:DLMG — Level 5 | Advanced | Inferred from role: "Engineering Manager" at Acme Corp (3 years) |
+| Docker | SFIA:ITOP — Level 3 | Intermediate | Docker Hub: 8 images, 15K+ pulls |
+| GraphQL | SFIA:PROG — Level 2 | Beginner | GitHub: 2 repos with GraphQL usage |
+| Financial Modeling | CFA:Quant — Advanced | Advanced | Verified by CFA Institute (CFA Charterholder, 2023) |
+| Market Research | CIM:Insights — Professional | Intermediate | Self-reported (unverified) |
+| **--- Behavioral & Soft Skills ---** | | | |
+| Leadership | — | Advanced | Inferred from role: managed 12-person team at Acme Corp (3 yrs); Slack: decision-making patterns |
+| Cross-functional Collaboration | — | Advanced | Inferred from comms: coordinated across 4 departments; 3 cross-team projects |
+| Mentoring | — | Intermediate | GitHub: 15 PRs reviewed for junior devs; Slack: mentoring conversations identified |
+| Communication (Written) | — | Expert | Dev.to: 25 articles; 3 whitepapers authored; clear technical documentation |
+| Communication (Verbal) | — | Intermediate | Self-reported: conference talks, client presentations |
+| Problem Solving | — | Advanced | Stack Overflow: 200+ answers; GitHub: complex issue resolutions |
+| Adaptability | — | Advanced | Inferred from role: 3 industry transitions across career; multi-stack proficiency |
+| Stakeholder Management | — | Intermediate | Inferred from role: "Product Manager" at Beta Inc; email: client correspondence |
+| Conflict Resolution | — | Intermediate | Inferred from comms: mediation patterns in team discussions |
+| Time Management | — | Advanced | Inferred from role: concurrent project delivery across 2 teams |
+
+[Replace the above examples with actual data. Include ALL skills identified from every
+source. Order by level (Expert → Beginner), then alphabetically within each level.]
+
+### Professional Skills Framework Mapping
+
+Every skill in the resume MUST be mapped to the appropriate **professional skills framework**
+based on the person's profession/industry. The framework is selected automatically based on
+the person's job title, industry, and role history. If a person spans multiple domains, use
+multiple frameworks.
+
+**Framework selection is defined in the `skills-frameworks` vocabulary** (see
+`skills-frameworks/SKILL.md`). Consult that vocabulary for the full framework reference,
+skill codes, level definitions, and mapping rules.
+
+**Framework selection logic:**
+
+| Profession / Domain | Primary Framework | Reference |
+|---|---|---|
+| IT / Software / Digital | **SFIA 9** (Skills Framework for the Information Age) | sfia-online.org |
+| Project Management | **PMI Talent Triangle** + **IPMA ICB4** | pmi.org / ipma.world |
+| Finance / Accounting | **CFA Body of Knowledge** + **ACCA Competency Framework** | cfainstitute.org / accaglobal.com |
+| Marketing / Digital Marketing | **CIM Professional Marketing Competencies** | cim.co.uk |
+| Human Resources | **SHRM Competency Model** + **CIPD Profession Map** | shrm.org / cipd.org |
+| Sales | **MEDDIC/MEDDPICC** competencies + **Sandler Selling System** | — |
+| Data Science / AI | **EDISON Data Science Framework (DS-BoK)** | edison-project.eu |
+| Cybersecurity | **NICE Workforce Framework (NIST SP 800-181r1)** | niccs.cisa.gov |
+| Cloud / DevOps | **SFIA 9** (primary) + cloud provider skill frameworks | sfia-online.org |
+| Design / UX | **UXPA Body of Knowledge** + **IxDA Competencies** | uxpa.org |
+| Healthcare IT | **AMIA Health Informatics Competencies** | amia.org |
+| Legal | **SRA Competence Statement** (UK) / **ABA Competencies** (US) | sra.org.uk / americanbar.org |
+| Supply Chain / Logistics | **ASCM (APICS) Body of Knowledge** | ascm.org |
+| Engineering (non-software) | **UK-SPEC / EUR-ING Competence Standards** | engc.org.uk |
+| Education / Training | **UNESCO ICT Competency Framework for Teachers** | unesco.org |
+| Product Management | **Product Management Competency Framework (Pragmatic Institute)** | pragmaticinstitute.com |
+| General / Cross-functional | **European e-Competence Framework (e-CF 4.0)** | ecompetences.eu |
+
+**How the framework column works in the skills table:**
+- The **SFIA Mapping** column header adapts to the selected framework:
+  `SFIA Mapping` → `Framework Mapping` (generic) or the specific framework name
+- Format: `[FRAMEWORK_CODE] — Level [N]` (e.g., `SFIA:PROG — Level 5` or `NICE:SP-DEV-001 — Advanced`)
+- If a skill maps to multiple frameworks (e.g., a data scientist who also does project management),
+  list both: `SFIA:DTAN — Level 4; EDISON:DA — Level 3`
+- If no framework applies to a particular skill, use `—` in the column
+
+**How to determine the framework mapping:**
+1. Detect the person's primary profession from their job title and role history
+2. Select the appropriate framework(s) from `skills-frameworks/SKILL.md`
+3. For each skill, find the closest code/competency in the selected framework
+4. Map the proficiency level to the framework's level system using evidence
+5. If the person spans multiple professions, apply multiple frameworks as needed
+6. **If no framework exists for the person's industry**, follow the protocol in
+   `skills-frameworks/SKILL.md` Section 13: inform the user, ask if they have a preferred
+   framework, and use Universal Proficiency Levels as fallback
+
+**Mandatory framework attribution:** The Skills section MUST always include:
+```
+**Skills evaluated per:** [Framework Name] ([reference URL or source])
+```
+This makes it transparent to any resume reader which standard was used for skill assessment.
+If multiple frameworks are used, list all of them.
+
+### Skill Categories
+
+The skills table MUST include **both technical and behavioral skills**. Group them clearly:
+
+**Technical Skills** — tools, technologies, programming languages, methodologies, domain-specific
+knowledge (e.g., Python, Kubernetes, Financial Modeling, Machine Learning)
+
+**Behavioral & Soft Skills** — interpersonal, leadership, cognitive, and professional competencies.
+These are equally important to employers and must be included with the same rigor of evidence.
+
+Common behavioral skills to look for and include:
+| Category | Skills to identify |
+|---|---|
+| **Leadership** | Team leadership, people management, vision-setting, decision-making, delegation |
+| **Communication** | Written communication, verbal communication, presentation, public speaking, active listening |
+| **Collaboration** | Cross-functional collaboration, teamwork, stakeholder management, partnership building |
+| **Problem Solving** | Analytical thinking, critical thinking, creative problem solving, root cause analysis |
+| **Mentoring & Coaching** | Peer mentoring, junior developer coaching, knowledge sharing, onboarding |
+| **Adaptability** | Learning agility, career transitions, multi-domain proficiency, change management |
+| **Conflict Resolution** | Negotiation, mediation, de-escalation, consensus building |
+| **Time & Project Management** | Prioritization, deadline management, multitasking, planning |
+| **Client & Stakeholder Relations** | Client management, expectation setting, relationship building, account management |
+| **Emotional Intelligence** | Empathy, self-awareness, social awareness, relationship management |
+| **Innovation & Creativity** | Ideation, design thinking, experimentation, prototyping |
+| **Ethics & Integrity** | Professional ethics, compliance awareness, responsible AI, data privacy |
+
+**How to extract behavioral skills from available data:**
+- **Role titles**: "Manager" / "Director" / "Lead" → Leadership, People Management, Decision-Making
+- **Team size managed**: Infer leadership and delegation scope
+- **Career transitions**: Multiple industries or role types → Adaptability, Learning Agility
+- **Chat/email data**: Language patterns reveal collaboration, mentoring, conflict resolution
+- **Published writing**: Articles/talks → Communication (Written), Thought Leadership
+- **Code reviews (GitHub)**: PR reviews → Mentoring, Code Quality Advocacy
+- **Stack Overflow answers**: → Knowledge Sharing, Communication (Written), Problem Solving
+- **Cross-team projects**: → Cross-functional Collaboration, Stakeholder Management
+- **Client-facing roles**: → Client Relations, Negotiation, Presentation Skills
+- **Self-reported**: Ask the user about soft skills directly — these are often under-represented
+  in platform data but highly valued by employers
+
+### Skill Level Definitions
+
+Determine each skill's proficiency level using the evidence hierarchy below. Use the
+**highest level supported by available evidence** — never over-claim.
+
+**Technical skills:**
+
+| Level | Criteria | Typical evidence |
+|---|---|---|
+| **Expert** | Deep, authoritative command. Recognized by others in the field. 5+ years of sustained, primary use. | VC-verified expert endorsement; top 1% Stack Overflow tag; 10+ major repos in this tech; patent using this skill; published papers/talks; senior/lead role title explicitly using this skill |
+| **Advanced** | Strong proficiency. Can architect, mentor, and handle complex problems. 3–5 years of regular use. | VC-verified advanced assessment; professional certification (CKA, AWS SA Pro, etc.); 5+ repos with significant commits; Stack Overflow top 10% tag; 3+ years in role requiring this skill |
+| **Intermediate** | Solid working knowledge. Can deliver independently. 1–3 years of use. | VC-verified intermediate assessment; foundational certification (AWS CCP, AZ-900, etc.); 2+ repos; Stack Overflow answers in this tag; 1–3 years in role using this skill; articles authored on topic |
+| **Beginner** | Foundational understanding. Can contribute with guidance. <1 year of use. | Mentioned in 1–2 repos; coursework or bootcamp certs; minor chat/document references; self-reported with no corroborating evidence |
+
+**Behavioral & soft skills:**
+
+| Level | Criteria | Typical evidence |
+|---|---|---|
+| **Expert** | Recognized authority. Shapes organizational culture around this competency. Coaches others at scale. | VC-verified leadership endorsement; 5+ years managing large teams; keynote speaker; authored books/courses on leadership/communication; recognized mentor across organizations |
+| **Advanced** | Consistently demonstrates at high level. Trusted to lead complex interpersonal situations. | 3+ years in management/leadership roles; cross-functional project leadership; pattern of conflict resolution in comms; strong PR review/mentoring record |
+| **Intermediate** | Reliably applies in professional settings. Contributes positively to team dynamics. | 1–3 years in collaborative roles; evidence of mentoring juniors; client-facing experience; team project participation |
+| **Beginner** | Developing awareness. Applies with guidance in structured settings. | Early-career roles; team participation without leadership; self-reported development goals |
+
+### Proof Source Labels
+
+Use these standardized labels in the Proof column:
+
+| Source type | Label format |
+|---|---|
+| Verifiable Credential (cryptographically verified) | **Verified by [Issuer Name]** ([Credential Name], [Date]) |
+| Verifiable Credential (issued, not verified) | **Issued by [Issuer Name]** ([Credential Name], [Date]) |
+| Platform certification (Credly, cloud certs) | **Verified by [Platform]** ([Cert Name], [Date]) |
+| GitHub evidence | GitHub: [X] repos, [Y] commits / stars |
+| Stack Overflow evidence | Stack Overflow: top [X]% [tag] score |
+| Docker Hub evidence | Docker Hub: [X] images, [Y] pulls |
+| npm / PyPI evidence | npm/PyPI: [X] packages, [Y] downloads/week |
+| Published writing | [Platform]: [X] articles, [Y] reactions/claps |
+| Kaggle evidence | Kaggle: [X] competitions, [medal/rank] |
+| Role-inferred | Inferred from role: "[Title]" at [Company] ([Duration]) |
+| Document-inferred | Inferred from authored: "[Document Title]" |
+| Chat-inferred | Inferred from [Platform] communications |
+| Self-reported | Self-reported (unverified) |
+
+### Multi-source Skill Aggregation
+
+When a skill appears in multiple sources, **combine the evidence** to determine the level:
+- A skill verified by VC always takes the VC level, regardless of other evidence
+- Without VCs, combine evidence: e.g., GitHub (3 repos) + Stack Overflow (top 15%) +
+  2 years in role → Advanced
+- List all proof sources separated by semicolons in the Proof column
+- Example: `GitHub: 8 repos, 200+ commits; Stack Overflow: top 8% tag; Verified by CNCF (CKA, Jan 2025)`
 
 ---
 
