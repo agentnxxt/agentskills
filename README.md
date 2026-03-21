@@ -17,6 +17,13 @@ Produces exhaustive, standardised profiles of SaaS products across 18 dimensions
 - Reads from and writes to the shared Notion feature registry
 - Covers: features, use cases, APIs, pricing, security, support, roadmap, analyst rankings, and more
 
+### `linkedin-resume`
+Generates a polished, ATS-friendly resume from a LinkedIn profile.
+- Accepts LinkedIn URL, name + company, or email as input
+- Uses Explorium prospect matching and profile enrichment
+- Outputs a structured Markdown resume (summary, experience, education, skills)
+- Optional contact enrichment (email/phone) with cost confirmation
+
 ### `autonomyx-vocabulary`
 Shared vocabulary and taxonomy reference used by all Autonomyx skills.
 - Gartner Peer Insights → G2 category mapping (~120 markets)
@@ -52,6 +59,9 @@ saas-standardizer
 
 autonomyx-vocabulary
   └── standalone reference (no dependencies)
+
+linkedin-resume
+  └── reads → Explorium (match-prospects, enrich-prospects)
 ```
 
 ## Feature Status Badges
