@@ -1,19 +1,23 @@
 ---
-name: linkedin-resume
+name: autonomyx-skill-evaluator
 description: >
-  Generates a polished, professional resume from any online profile or account. Trigger this
-  skill when a user asks to create, build, or generate a resume from any profile URL (LinkedIn,
-  GitHub, Docker Hub, WordPress, Stack Overflow, Behance, Dribbble, Medium, Dev.to, npm, PyPI,
-  or any other platform), a person's name and company, or an email address. Uses platform-specific
-  APIs to extract identity and portfolio data, then uses Explorium prospect matching and enrichment
-  to retrieve professional background (work history, education, demographics). Formats the output
-  as a structured, ATS-friendly resume in Markdown with platform-specific portfolio sections.
+  Evaluates professional skills from any source and generates a verified, framework-mapped
+  resume. Trigger this skill when a user asks to create, build, or generate a resume, evaluate
+  skills, or assess professional competencies. Accepts any input: profile URLs (LinkedIn, GitHub,
+  Docker Hub, Stack Overflow, npm, PyPI, Dev.to, Medium, Behance, Dribbble, Kaggle, WordPress,
+  or any platform), Verifiable Credentials, chat/email exports, authored documents, patents,
+  certifications, or self-reported data. Evaluates each skill against profession-specific
+  competency frameworks (SFIA, NICE, EDISON, PMI, CFA, SHRM, CIM, etc.) with proficiency levels
+  and credibility-tiered proof ([S] self-evident through [G] self-reported). Uses Explorium
+  prospect matching and enrichment for professional background. Outputs a structured, ATS-friendly
+  resume in Markdown with a comprehensive skills table, verification status, and credential
+  verification encouragement.
 ---
 
-# Resume Generator — Any Profile, Any Platform
+# Autonomyx Skill Evaluator
 
-Creates a professional resume from any online profile, retrieved via platform-specific APIs
-and Explorium prospect matching/enrichment.
+Evaluates professional skills from any source — profiles, credentials, documents, and
+communications — and generates a verified, framework-mapped resume.
 
 ## When to Use
 

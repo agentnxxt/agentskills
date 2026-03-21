@@ -17,14 +17,14 @@ Produces exhaustive, standardised profiles of SaaS products across 18 dimensions
 - Reads from and writes to the shared Notion feature registry
 - Covers: features, use cases, APIs, pricing, security, support, roadmap, analyst rankings, and more
 
-### `linkedin-resume`
-Generates a polished, ATS-friendly resume from any online profile or account.
-- Accepts URLs from any platform: LinkedIn, GitHub, Docker Hub, Stack Overflow, npm, PyPI, Dev.to, Medium, Behance, Dribbble, Kaggle, WordPress, and more
-- Resolves non-LinkedIn profiles via platform APIs or web fetching to extract identity and portfolio data
-- Uses Explorium prospect matching and enrichment for professional background (work history, education)
-- Generates platform-specific portfolio sections (repos, packages, articles, designs, images)
-- Falls back to portfolio-only resume when no Explorium match is found
-- Optional contact enrichment (email/phone) with cost confirmation
+### `autonomyx-skill-evaluator`
+Evaluates professional skills from any source and generates a verified, framework-mapped resume.
+- Accepts any input: profile URLs (LinkedIn, GitHub, Docker Hub, Stack Overflow, npm, PyPI, etc.), Verifiable Credentials, chat/email exports, authored documents, patents, certifications
+- Evaluates each skill against profession-specific frameworks (SFIA, NICE, EDISON, PMI, CFA, SHRM, CIM, etc.) with proficiency levels and credibility-tiered proof ([S] self-evident through [G] self-reported)
+- Uses Explorium prospect matching and enrichment for professional background
+- Generates comprehensive skills table with framework mapping, behavioral + technical skills
+- Supports Verifiable Credentials (W3C, JWT, SD-JWT, Open Badges v3) with trust tiers
+- Encourages credential verification for unverified resume items
 
 ### `skills-frameworks`
 Shared vocabulary of professional skills frameworks for standardized skill classification.
@@ -69,7 +69,7 @@ saas-standardizer
 autonomyx-vocabulary
   └── standalone reference (no dependencies)
 
-linkedin-resume
+autonomyx-skill-evaluator
   └── reads → skills-frameworks (skill classification and framework mapping)
   └── reads → Explorium (match-prospects, enrich-prospects)
   └── reads → Platform APIs (GitHub, Docker Hub, Stack Overflow, npm, PyPI, Dev.to, etc.)
