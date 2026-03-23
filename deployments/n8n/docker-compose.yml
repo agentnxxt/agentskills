@@ -25,8 +25,8 @@ services:
       N8N_EXTERNAL_AUTH_OIDC_CLIENT_ID: ${N8N_OIDC_CLIENT_ID}
       N8N_EXTERNAL_AUTH_OIDC_CLIENT_SECRET: ${N8N_OIDC_CLIENT_SECRET}
       N8N_EXTERNAL_AUTH_OIDC_ISSUER: ${LOGTO_ENDPOINT:-http://logto:3001}/oidc
-    ports:
-      - "5678:5678"
+    expose:
+      - "5678"
     volumes:
       - n8n-data:/home/node/.n8n
     depends_on:

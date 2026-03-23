@@ -1,0 +1,42 @@
+# OpenAtonomyx — Caddy Reverse Proxy
+# Automatic HTTPS via Let's Encrypt for all *.agnxxt.com subdomains
+
+# Logto — Identity Provider
+logto.agnxxt.com {
+	reverse_proxy logto:3001
+}
+
+# Logto Admin Console
+logto-admin.agnxxt.com {
+	reverse_proxy logto:3002
+}
+
+# Liferay — Portal / CMS
+liferay.agnxxt.com {
+	reverse_proxy liferay:8080
+}
+
+# Lago — Billing UI
+lago.agnxxt.com {
+	reverse_proxy lago-front:80
+}
+
+# Lago — Billing API
+lago-api.agnxxt.com {
+	reverse_proxy lago-api:3000
+}
+
+# ERPNext — ERP
+erp.agnxxt.com {
+	reverse_proxy erpnext:8069
+}
+
+# Odoo — ERP/CRM
+odoo.agnxxt.com {
+	reverse_proxy odoo:8069
+}
+
+# n8n — Workflow Automation
+n8n.agnxxt.com {
+	reverse_proxy n8n:5678
+}

@@ -22,8 +22,8 @@ services:
       LIFERAY_OPENID_PERIOD_CONNECT_PERIOD_CLIENT_PERIOD_SECRET: ${LIFERAY_OIDC_CLIENT_SECRET}
       LIFERAY_OPENID_PERIOD_CONNECT_PERIOD_DISCOVERY_PERIOD_ENDPOINT: ${LOGTO_ENDPOINT:-http://logto:3001}/oidc/.well-known/openid-configuration
       LIFERAY_OPENID_PERIOD_CONNECT_PERIOD_SCOPES: "openid profile email"
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     volumes:
       - liferay-data:/opt/liferay/data
       - liferay-osgi:/opt/liferay/osgi

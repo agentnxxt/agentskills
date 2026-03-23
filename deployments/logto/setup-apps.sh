@@ -74,8 +74,8 @@ create_app() {
   echo ""
 }
 
-DOMAIN="${DOMAIN:-localhost}"
-PROTO="${PROTOCOL:-http}"
+DOMAIN="${DOMAIN:-agnxxt.com}"
+PROTO="${PROTOCOL:-https}"
 
 get_token
 

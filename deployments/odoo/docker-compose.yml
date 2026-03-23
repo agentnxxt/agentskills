@@ -19,8 +19,8 @@ services:
       #   Token URL: ${LOGTO_ENDPOINT}/oidc/token
       #   JWKS URL:  ${LOGTO_ENDPOINT}/oidc/jwks
       #   Scope:     openid profile email
-    ports:
-      - "8070:8069"
+    expose:
+      - "8069"
     volumes:
       - odoo-data:/var/lib/odoo
       - odoo-addons:/mnt/extra-addons

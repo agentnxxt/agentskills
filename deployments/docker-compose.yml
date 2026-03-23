@@ -1,16 +1,42 @@
-# OpenAtonomyx — Full Stack Monorepo
+# OpenAtonomyx — Full Stack Deployment for agnxxt.com
 # All services on a shared Docker network with Logto as the central IdP.
+# Caddy handles HTTPS termination and subdomain routing.
 #
 # Usage:
 #   cp .env.example .env   # fill in secrets
-#   docker compose up -d
+#   ./deploy.sh            # or: docker compose up -d
 #
-# Individual stacks can also be started standalone:
-#   docker compose -f logto/docker-compose.yml up -d
+# Subdomains:
+#   logto.agnxxt.com       — Identity Provider
+#   logto-admin.agnxxt.com — Logto Admin Console
+#   liferay.agnxxt.com     — Portal / CMS
+#   lago.agnxxt.com        — Billing UI
+#   lago-api.agnxxt.com    — Billing API
+#   erp.agnxxt.com         — ERPNext
+#   odoo.agnxxt.com        — Odoo ERP/CRM
+#   n8n.agnxxt.com         — Workflow Automation
 
 name: openatonomyx
 
 services:
+  # ─── Reverse Proxy (HTTPS) ─────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    container_name: openatonomyx-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      logto:
+        condition: service_healthy
+    networks: [openatonomyx]
+
   # ─── Identity Provider (start first) ────────────────────────────
   logto:
     extends:
@@ -151,6 +177,8 @@ networks:
     driver: bridge
 
 volumes:
+  caddy-data:
+  caddy-config:
   logto-db-data:
   liferay-data:
   liferay-db-data:

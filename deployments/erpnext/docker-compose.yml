@@ -23,8 +23,8 @@ services:
       OAUTH_CLIENT_ID: ${ERPNEXT_OIDC_CLIENT_ID}
       OAUTH_CLIENT_SECRET: ${ERPNEXT_OIDC_CLIENT_SECRET}
       OAUTH_PROVIDER_URL: ${LOGTO_ENDPOINT:-http://logto:3001}/oidc
-    ports:
-      - "8069:8069"
+    expose:
+      - "8069"
     volumes:
       - erpnext-data:/home/frappe/frappe-bench/sites
     depends_on:

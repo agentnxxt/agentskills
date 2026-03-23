@@ -18,9 +18,9 @@ services:
       ENDPOINT: ${LOGTO_ENDPOINT:-http://localhost:3001}
       ADMIN_ENDPOINT: ${LOGTO_ADMIN_ENDPOINT:-http://localhost:3002}
       COOKIE_KEYS: ${LOGTO_COOKIE_KEYS:-cookie-key-change-me}
-    ports:
-      - "3001:3001"
-      - "3002:3002"
+    expose:
+      - "3001"
+      - "3002"
     depends_on:
       logto-db:
         condition: service_healthy

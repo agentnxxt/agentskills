@@ -22,8 +22,8 @@ services:
       LAGO_OAUTH_PROVIDERS_OPENID_CONNECT_CLIENT_ID: ${LAGO_OIDC_CLIENT_ID}
       LAGO_OAUTH_PROVIDERS_OPENID_CONNECT_CLIENT_SECRET: ${LAGO_OIDC_CLIENT_SECRET}
       LAGO_OAUTH_PROVIDERS_OPENID_CONNECT_ISSUER: ${LOGTO_ENDPOINT:-http://logto:3001}/oidc
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     depends_on:
       lago-db:
         condition: service_healthy
@@ -39,8 +39,8 @@ services:
       API_URL: ${LAGO_API_HOST:-http://localhost:3000}
       APP_ENV: production
       LAGO_OAUTH_PROVIDERS_OPENID_CONNECT_ENABLED: "true"
-    ports:
-      - "8090:80"
+    expose:
+      - "80"
     depends_on:
       - lago-api
     networks: [default]
