@@ -11,8 +11,11 @@ services:
       LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL: jdbc:postgresql://${LIFERAY_DB_HOST:-liferay-db}:5432/${LIFERAY_DB_NAME:-lportal}
       LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_USERNAME: ${LIFERAY_DB_USER:-liferay}
       LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_PASSWORD: ${LIFERAY_DB_PASSWORD:-liferay}
-      LIFERAY_SETUP_PERIOD_WIZARD_PERIOD_ENABLED: "false"
+      # First boot: wizard creates the local admin account
+      # After setup, change to "false" and redeploy
+      LIFERAY_SETUP_PERIOD_WIZARD_PERIOD_ENABLED: ${LIFERAY_SETUP_WIZARD:-true}
       LIFERAY_ADMIN_PERIOD_EMAIL_PERIOD_FROM_PERIOD_ADDRESS: ${LIFERAY_ADMIN_EMAIL:-admin@example.com}
+      # Default admin: test@liferay.com / test (change immediately after first boot)
       # Elasticsearch connection
       LIFERAY_ELASTICSEARCH_PERIOD_CONNECTION_PERIOD_URL: http://liferay-es:9200
       # OIDC / Logto SSO

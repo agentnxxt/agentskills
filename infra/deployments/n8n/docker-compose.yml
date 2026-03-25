@@ -20,6 +20,9 @@ services:
       N8N_PROTOCOL: https
       NODE_ENV: production
       GENERIC_TIMEZONE: UTC
+      # Local owner account (fallback when OIDC is down)
+      N8N_DEFAULT_USER_EMAIL: ${N8N_ADMIN_EMAIL:-admin@agnxxt.com}
+      N8N_DEFAULT_USER_PASSWORD: ${N8N_ADMIN_PASSWORD}
       # OIDC / Logto SSO — Enterprise feature or community SSO via External Auth
       N8N_EXTERNAL_AUTH_ENABLED: "true"
       N8N_EXTERNAL_AUTH_OIDC_CLIENT_ID: ${N8N_OIDC_CLIENT_ID}

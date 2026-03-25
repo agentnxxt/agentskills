@@ -8,7 +8,7 @@
 #
 # Subdomains:
 #   logto.agnxxt.com       — Identity Provider
-#   logto-admin.agnxxt.com — Logto Admin Console
+#   authadmin.openautonomyx.com — Logto Admin Console
 #   liferay.agnxxt.com     — Portal / CMS
 #   lago.agnxxt.com        — Billing UI
 #   lago-api.agnxxt.com    — Billing API

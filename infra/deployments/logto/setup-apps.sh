@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-LOGTO_ADMIN="${LOGTO_ADMIN_ENDPOINT:-http://localhost:3002}"
+LOGTO_ADMIN="${LOGTO_ADMIN_ENDPOINT:-https://authadmin.openautonomyx.com}"
 
 # Get management API access token (M2M)
 get_token() {
@@ -104,6 +104,10 @@ create_app "Odoo" \
 create_app "n8n Workflows" \
   "${PROTO}://n8n.${DOMAIN}/rest/oauth2-credential/callback" \
   "${PROTO}://n8n.${DOMAIN}"
+
+create_app "Sim Studio" \
+  "${PROTO}://sim.${DOMAIN}/api/auth/callback/oidc" \
+  "${PROTO}://sim.${DOMAIN}"
 
 echo ""
 echo "═══════════════════════════════════════════════════"

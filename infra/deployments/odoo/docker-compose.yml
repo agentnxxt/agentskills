@@ -11,6 +11,7 @@ services:
       PORT: 5432
       USER: ${ODOO_DB_USER:-odoo}
       PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
+      ADMIN_PASSWD: ${ODOO_ADMIN_PASSWORD:-admin}
       # OIDC / Logto SSO — via auth_oauth module (auto-installed)
       ODOO_LOAD: "base,web,auth_oauth"
       ODOO_OIDC_CLIENT_ID: ${ODOO_OIDC_CLIENT_ID:-}
