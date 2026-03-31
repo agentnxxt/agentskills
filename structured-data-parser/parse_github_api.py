@@ -393,6 +393,102 @@ def fetch_commits(owner: str, repo: str, branch: str = "",
     return [Commit.from_raw(r) for r in raw]
 
 
+def fetch_file(owner: str, repo: str, path: str, ref: str = "") -> dict:
+    """
+    Fetch a single file from a GitHub repo and return its decoded content.
+
+    Parameters
+    ----------
+    owner : str
+        Repository owner / org (e.g. 'InteractiveAdvertisingBureau').
+    repo : str
+        Repository name (e.g. 'Taxonomies').
+    path : str
+        File path within the repo (e.g. 'Content Taxonomies/Content Taxonomy 3.1.tsv').
+        Spaces are encoded automatically.
+    ref : str, optional
+        Branch, tag, or commit SHA (e.g. 'develop'). Defaults to the repo's default branch.
+
+    Returns
+    -------
+    dict with keys:
+        name        — filename
+        path        — full path in repo
+        sha         — blob SHA
+        size        — size in bytes
+        url         — GitHub HTML URL
+        download_url — direct raw download URL
+        content     — decoded file content as str (UTF-8)
+        encoding    — original encoding field from API ('base64')
+
+    Raises
+    ------
+    ValueError
+        If the path points to a directory, not a file.
+    requests.HTTPError
+        On 404 or other HTTP errors.
+    """
+    import base64
+    from urllib.parse import quote
+
+    encoded_path = "/".join(quote(part, safe="") for part in path.split("/"))
+    url = f"{BASE_URL}/repos/{owner}/{repo}/contents/{encoded_path}"
+    params = {"ref": ref} if ref else {}
+    resp = _get(url, params=params or None)
+    raw = resp.json()
+
+    if isinstance(raw, list):
+        raise ValueError(f"'{path}' is a directory. Use a file path.")
+
+    content_b64 = raw.get("content", "")
+    decoded = base64.b64decode(content_b64).decode("utf-8")
+
+    return {
+        "name": raw.get("name", ""),
+        "path": raw.get("path", ""),
+        "sha": raw.get("sha", ""),
+        "size": raw.get("size", 0),
+        "url": raw.get("html_url", ""),
+        "download_url": raw.get("download_url", ""),
+        "content": decoded,
+        "encoding": raw.get("encoding", ""),
+    }
+
+
+def fetch_file_as_csv(owner: str, repo: str, path: str, ref: str = "",
+                      delimiter: str = "\t") -> list[dict]:
+    """
+    Fetch a CSV or TSV file from GitHub and return it as a list of dicts.
+
+    Auto-detects delimiter from file extension if not specified:
+    .tsv → tab, .csv → comma.
+
+    Parameters
+    ----------
+    delimiter : str
+        Column separator. Default is tab (TSV). Pass ',' for CSV.
+
+    Returns
+    -------
+    list[dict]
+        One dict per data row, keyed by header column names.
+        Skips blank rows.
+    """
+    import csv as _csv
+
+    file = fetch_file(owner, repo, path, ref)
+
+    # auto-detect from extension
+    ext = file["name"].rsplit(".", 1)[-1].lower()
+    if ext == "csv":
+        delimiter = ","
+    elif ext == "tsv":
+        delimiter = "\t"
+
+    reader = _csv.DictReader(file["content"].splitlines(), delimiter=delimiter)
+    return [row for row in reader if any(v.strip() for v in row.values())]
+
+
 def search_repos(query: str, sort: str = "stars", order: str = "desc") -> list[Repo]:
     """Search GitHub repos and return typed Repo objects."""
     raw = fetch_all(f"{BASE_URL}/search/repositories",
@@ -473,7 +569,7 @@ Examples:
     )
     sub = parser.add_subparsers(dest="resource", required=True)
 
-    for res in ("repo", "issues", "pulls", "releases", "commits"):
+    for res in ("repo", "issues", "pulls", "releases", "commits", "file"):
         p = sub.add_parser(res)
         if res != "search":
             p.add_argument("owner")
@@ -484,7 +580,10 @@ Examples:
             p.add_argument("--since", default="")
         if res == "pulls":
             p.add_argument("--state", default="open", choices=["open", "closed", "all"])
-        if res == "commits":
+        if res == "file":
+            p.add_argument("file_path", help="File path within the repo")
+            p.add_argument("--ref", default="", help="Branch/tag/SHA")
+            p.add_argument("--delimiter", default="", help="Force delimiter (default: auto)")
             p.add_argument("--branch", default="")
             p.add_argument("--since", default="")
             p.add_argument("--until", default="")
@@ -511,8 +610,23 @@ Examples:
         objects = fetch_releases(args.owner, args.repo)
     elif args.resource == "commits":
         objects = fetch_commits(args.owner, args.repo, args.branch, args.since, args.until, args.path)
-    elif args.resource == "search":
-        objects = search_repos(args.query, args.sort, args.order)
+    elif args.resource == "file":
+        from parse_github_api import fetch_file, fetch_file_as_csv
+        if args.format == "csv":
+            kw = {"delimiter": args.delimiter} if args.delimiter else {}
+            objects = fetch_file_as_csv(args.owner, args.repo, args.file_path, args.ref, **kw)
+            output = to_csv(objects) if objects and isinstance(objects[0], dict) else "\n".join(str(r) for r in objects)
+        else:
+            result = fetch_file(args.owner, args.repo, args.file_path, args.ref)
+            output = result["content"] if args.format == "summary" else to_json([result])
+        if args.out:
+            from pathlib import Path
+            Path(args.out).write_text(output, encoding="utf-8")
+            print(f"Written to {args.out}")
+        else:
+            print(output[:2000] + ("\n…truncated" if len(output) > 2000 else ""))
+        return
+
 
     if args.format == "json":
         output = to_json(objects)
