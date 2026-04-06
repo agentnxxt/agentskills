@@ -5,3 +5,4 @@ cryptography==44.0.0
 surrealdb==0.3.2
 pydantic==2.10.4
 python-multipart==0.0.20
+aiofiles==24.1.0

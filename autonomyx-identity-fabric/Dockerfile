@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application source
 COPY scripts/ ./
+COPY integrations/ ../integrations/
 
 # Non-root user
 RUN useradd -m -u 1001 fabric

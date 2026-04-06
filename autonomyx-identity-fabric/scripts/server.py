@@ -21,6 +21,8 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Depends, Security, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 import uvicorn
 
@@ -38,6 +40,11 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# Serve integration pages (no auth required)
+_INTEGRATIONS_DIR = os.path.join(os.path.dirname(__file__), "..", "integrations")
+if os.path.isdir(_INTEGRATIONS_DIR):
+    app.mount("/integrations", StaticFiles(directory=_INTEGRATIONS_DIR, html=True), name="integrations")
 
 app.add_middleware(
     CORSMiddleware,
