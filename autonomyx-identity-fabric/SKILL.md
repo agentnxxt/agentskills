@@ -256,10 +256,24 @@ Auto-generated from edge list. Output only when user explicitly asks for visuali
 | File | When to read |
 |---|---|
 | `references/surrealdb-schema.surql` | Before writing any SurrealQL — tables, indexes, LIVE SELECTs |
-| `references/provider-connectors.md` | Before implementing or calling any provider connector |
+| `references/provider-connectors.md` | API endpoint specs and field mappings for all 12 providers |
 | `references/compliance.md` | Before any code touching PII storage or transmission |
-| `scripts/connectors/base.py` | Abstract base class for all provider connectors |
-| `scripts/resolve.py` | Main RESOLVE orchestrator |
-| `scripts/enrich.py` | ENRICH pipeline |
-| `scripts/audit.py` | AUDIT report generator |
-| `scripts/schema_seed.sh` | Run once to seed SurrealDB schema on fresh instance |
+| `scripts/resolve.py` | RESOLVE orchestrator — identifier normalisation, BFS traversal |
+| `scripts/enrich.py` | ENRICH pipeline — upsert, encryption, linkage discovery |
+| `scripts/audit.py` | AUDIT report — anomaly detection, Mermaid graph, Markdown report |
+| `scripts/schema_seed.sh` | Run once to seed SurrealDB schema on a fresh instance |
+| `scripts/connectors/base.py` | `IdentityNode`, `BaseConnector`, typed exceptions, HTTP utilities |
+| `scripts/connectors/__init__.py` | Registry — `get_connector()`, `register_connector()`, `run_health_checks()` |
+| `scripts/connectors/google.py` | Google OIDC + optional People API phone fetch |
+| `scripts/connectors/github.py` | GitHub OAuth — `/user` + `/user/emails` |
+| `scripts/connectors/microsoft.py` | Microsoft Graph `/me` — personal + Entra ID + Azure AD |
+| `scripts/connectors/apple.py` | Apple Sign In — JWT decode only, Private Relay detection |
+| `scripts/connectors/linkedin.py` | LinkedIn OIDC `/v2/userinfo` |
+| `scripts/connectors/twitter.py` | Twitter/X v2 `/users/me` |
+| `scripts/connectors/logto.py` | Logto OIDC + Management API — `identities` map for cross-provider stubs |
+| `scripts/connectors/okta.py` | Okta SSWS admin API + OIDC userinfo fallback |
+| `scripts/connectors/auth0.py` | Auth0 Management API v2 + OIDC userinfo fallback |
+| `scripts/connectors/ping.py` | PingOne worker app — multi-region, UUID auto-detection |
+| `scripts/connectors/keycloak.py` | Keycloak Admin REST + federated-identity endpoint |
+| `scripts/connectors/custom_oidc.py` | Generic OIDC Discovery for any compliant IdP |
+| `tests/test_connectors.py` | 23 unit tests — run with `pytest tests/ --asyncio-mode=auto` |
