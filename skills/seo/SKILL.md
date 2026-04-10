@@ -7,12 +7,48 @@ description: "Comprehensive SEO skill for AI agents. Use when performing SEO aud
 
 Comprehensive SEO guidance for AI-powered search optimization workflows.
 
+-## Capabilities Overview
+- Core: SEO scoring with compute_seo_score and run_checks; outputs a numeric score (0-100) and per-signal details.
+- Telemetry: competitor_insights (mock telemetry) and per-signal telemetry surfaced in output for visibility.
+- Google Trends: optional integration via GoogleTrendsTool to surface keyword trend signals.
+## Getting Started
+- Prerequisites: Python 3.x, environment variables (optional): SEO_GATE_ENABLED, SEO_GATE_THRESHOLD, SEO_COMPETITOR_LIVE, SEO_AMP_SIGNAL_ENABLED
+- Quick start (end-to-end):
+  1) Review and optionally set gating:
+     - export SEO_GATE_ENABLED=true
+     - export SEO_GATE_THRESHOLD=60
+  2) Run end-to-end demo:
+     - python3 scripts/demo_seo_pipeline.py https://example.com
+  3) Inspect output to confirm keys: audit, score, gate, competitor_insights, details
+- Quick one-liner to test gating without AMP toggle:
+  - export SEO_GATE_ENABLED=true; export SEO_GATE_THRESHOLD=60; python3 scripts/demo_seo_pipeline.py https://example.com
+- Core: SEO scoring with compute_seo_score and run_checks; outputs a numeric score (0-100) and per-signal details.
+- Telemetry: competitor_insights (mock) and per-signal telemetry surfaced in output for visibility.
+- Signals: technical (crawlable, lighthouse_score, index_coverage_ok, mobile_friendly, amp_pages_present, schema_present, canonical_present, canonical_match), on-page (title, meta_description, h1), content (length, readability).
+- Per-page signals: designed to operate on a per-URL basis; also supports per-page canonical and index signals.
+- Competitor signals (mock): overlap_percent, top_pages_overlap_percent, backlink_quality, content_gap; exposed via competitor_insights in the output.
+- Integrations: Google Search Console tool (GSC) for per-site performance data; Bing Search API wrapper for SERP data.
+- Competitor analysis scaffold: competitor_analysis_tool.py (mock proto) for future API integration.
+- Testing: enhanced mock_audit with competitor data; end-to-end harness for combined audits and checks.
+- Outputs: final payload includes audit, checks, score, and competitor_insights (mock).
+
 ---
 
 ## 1. SEO Audit Framework
 
 ### Full Site Audit Checklist
 
+```
+### Bing Search API Tool (Bing)
+
+The Bing Search API provides access to Bing search results data. This tool can fetch keyword-based results and perform basic SERP analysis.
+
+Usage pattern:
+```python
+from tools.bing_search_api_tool import BingSearchApiTool
+
+bings = BingSearchApiTool(api_key="YOUR_BING_API_KEY")
+results = bings.search(query="site:example.com best practices", count=50, language="en-US")
 ```
 1. TECHNICAL SEO
    ├── Crawl accessibility (robots.txt, canonical, noindex)
@@ -594,3 +630,29 @@ PHASE 4: Reporting (20 min)
 ---
 
 *This skill combines best practices from seo-audit, technical-seo-checker, seo-content-writer, seo-keyword-strategist, seo-local-business, programmatic-seo, seo-backlinks, seo-schema, and more from the agent skills ecosystem.*
+
+## Tools (Core)
+
+- SerpDiscoveryTool (Serp/keyword discovery and analysis)
+- ScrapeWebsiteTool (Website data collection)
+- PageSpeedInsightsTool (Core Web Vitals and performance signals)
+- GrammarChecker (Copy quality and grammar)
+- SchemaValidatorTool (Structured data validation and schema checks)
+- ContentOptimizerTool (Content optimization guidance and suggestions)
+- KnowledgeCitationsTool (Fetches sources and tracks citations)
+- LinkAuditTool (Backlink quality and risk assessment)
+- LocalDataTool (Local SEO data and GBP health checks)
+
+### Quick usage examples
+
+```
+# Example: run a quick audit on a URL
+tools = [SerpDiscoveryTool(), ScrapeWebsiteTool(), PageSpeedInsightsTool(), GrammarChecker(), SchemaValidatorTool()]
+result = seo_agent.kickoff("Audit: https://example.com", tools=tools)
+```
+
+```
+# Example: keyword discovery workflow
+tools = [SerpDiscoveryTool()]
+keywords = serp_agent.kickoff("Discover keywords for 'green widgets'", tools=tools)
+```
