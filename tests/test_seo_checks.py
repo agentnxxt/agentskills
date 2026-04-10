@@ -28,3 +28,17 @@ def test_competitor_insights_present():
         "content_gap",
     ]:
         assert k in ci
+
+
+def test_competitor_non_dict_input_is_safe():
+    aud = mock_audit("https://example.com")
+    aud["competitor"] = "unexpected-non-dict"
+
+    res = run_checks(aud)
+    ci = res["competitor_insights"]
+
+    assert ci["keyword_overlap_percent"] is None
+    assert ci["traffic_overlap_percent"] is None
+    assert ci["content_gap_topics"] is None
+    assert ci["backlink_toxicity"] is None
+    assert ci["domain_authority_gap"] is None
